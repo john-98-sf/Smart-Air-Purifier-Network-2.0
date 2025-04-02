@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Air Quality Viewer</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+  <style>
+    /* Dark Theme Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #121212;
+      color: #fff;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      color: #85e0c9;
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #85e0c9;
+    }
+
+    /* Header Section */
+    .header {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-family: Arial, sans-serif;
+      color: #2f6766;
+      font-size: 24px;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px;
+      border-radius: 8px;
+      z-index: 10;
+    }
+
+    /* AR Button */
+    #ar-button {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background-color: #85e0c9;
+      color: #1f1f1f;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #ar-button:hover {
+      background-color: #65bfa8;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #1e1e1e;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">Smart Air Purifier Network 2.0</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="air-purifier-dashboard.html">My purifier</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- AR Experience -->
+  <a-scene embedded arjs>
+    <!-- Camera Setup -->
+    <a-camera></a-camera>
+
+    <!-- Air Quality Overlays (3D objects for air quality data) -->
+    <a-box position="0 0 -3" color="#FF6347" scale="0.5 0.5 0.5" id="pm25-overlay" visible="false"></a-box>
+    <a-box position="0 0 -5" color="#4682B4" scale="0.5 0.5 0.5" id="co2-overlay" visible="false"></a-box>
+
+    <!-- Health Impact Simulation (3D animated character) -->
+    <a-entity id="health-impact-character" position="1 0 -5" visible="false">
+      <a-box position="0 0 0" color="#98FB98" scale="0.3 1 0.3"></a-box>
+    </a-entity>
+
+    <!-- Purifier Placement Suggestions (3D virtual purifier) -->
+    <a-entity id="purifier-placement" position="1 0 -4" visible="false">
+      <a-box position="0 0 0" color="#FF4500" scale="0.4 0.4 0.4"></a-box>
+    </a-entity>
+  </a-scene>
+
+  <!-- AR Button -->
+  <button id="ar-button">Activate AR Mode</button>
+
+  <div class="header">
+    <h3>AR Air Quality Viewer</h3>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Smart Air Purifier Network. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Simulate real-time air quality data
+    const airQualityData = {
+      PM25: 20, // PM2.5 levels
+      CO2: 400, // CO2 levels
+    };
+
+    // AR Mode Activation
+    document.getElementById('ar-button').addEventListener('click', function() {
+      // Simulate air quality overlays visibility based on data
+      document.getElementById('pm25-overlay').setAttribute('visible', true);
+      document.getElementById('co2-overlay').setAttribute('visible', true);
+
+      // Simulate health impact based on air quality (visuals change with data)
+      const healthImpact = document.getElementById('health-impact-character');
+      if (airQualityData.PM25 > 50) {
+        healthImpact.setAttribute('visible', true);
+        healthImpact.setAttribute('position', '1 0 -3'); // Show health impact closer
+      } else {
+        healthImpact.setAttribute('visible', false);
+      }
+
+      // Simulate purifier placement suggestion based on pollution level
+      const purifierPlacement = document.getElementById('purifier-placement');
+      if (airQualityData.CO2 > 400) {
+        purifierPlacement.setAttribute('visible', true);
+      } else {
+        purifierPlacement.setAttribute('visible', false);
+      }
+
+      // Change overlay color based on pollution levels
+      if (airQualityData.PM25 > 50) {
+        document.getElementById('pm25-overlay').setAttribute('color', '#FF6347'); // Red for high pollution
+      } else {
+        document.getElementById('pm25-overlay').setAttribute('color', '#32CD32'); // Green for safe levels
+      }
+
+      if (airQualityData.CO2 > 400) {
+        document.getElementById('co2-overlay').setAttribute('color', '#4682B4'); // Blue for CO2
+      } else {
+        document.getElementById('co2-overlay').setAttribute('color', '#32CD32'); // Green for lower levels
+      }
+    });
+
+    // You can enhance AR functionality by connecting it to real-time sensors or air quality APIs.
+  </script>
+</body>
+</html>

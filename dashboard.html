@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Air Purifier Network 2.0 - Dashboard</title>
+  <style>
+    /* Basic Reset & Body Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #1f1f1f;
+      color: #fff;
+    }
+    /* Navigation Bar */
+    nav {
+      background: #292929;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+    nav .logo {
+      color: #85e0c9;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #85e0c9;
+    }
+    /* Dashboard Container */
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    /* Page Title */
+    h1 {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    /* City Search Section */
+    .search-section {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .search-section input {
+      padding: 0.5rem;
+      width: 200px;
+      border-radius: 4px;
+      border: none;
+      margin-right: 0.5rem;
+    }
+    .search-section button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: #85e0c9;
+      color: #1f1f1f;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Cards Section */
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    .card {
+      flex: 1 1 200px;
+      min-width: 200px;
+      background: #2a2d2e;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .card h3 {
+      margin-bottom: 0.5rem;
+      color: #85e0c9;
+      font-size: 1.2rem;
+    }
+    .card p {
+      font-size: 1.1rem;
+    }
+    /* Charts Section */
+    .charts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-around;
+    }
+    .chart-box {
+      background: #2a2d2e;
+      padding: 1rem;
+      border-radius: 8px;
+      flex: 1 1 300px;
+      min-width: 300px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .chart-box h3 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #85e0c9;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #292929;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="logo">Smart Air Purifier Network 2.0</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="air-purifier-dashboard.html">My purifier</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="about.html">About</a></li>
+      
+      
+    </ul>
+  </nav>
+
+  <!-- Dashboard Container -->
+  <div class="dashboard-container">
+    <h1>Real-Time Air Quality Dashboard</h1>
+
+    <!-- City Search Section -->
+    <div class="search-section">
+      <input type="text" id="cityInput" placeholder="Enter city name">
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <!-- Metric Cards -->
+    <div class="cards">
+      <div class="card">
+        <h3>PM2.5</h3>
+        <p id="pm25">--</p>
+      </div>
+      <div class="card">
+        <h3>CO (Proxy for CO₂)</h3>
+        <p id="co2">--</p>
+      </div>
+      <div class="card">
+        <h3>O₃ (Proxy for VOC)</h3>
+        <p id="voc">--</p>
+      </div>
+      <div class="card">
+        <h3>Temp (°C)</h3>
+        <p id="temp">--</p>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts">
+      <div class="chart-box">
+        <h3>PM2.5 Over Time</h3>
+        <canvas id="pm25Chart" width="400" height="200"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Community Challenges</h3>
+        <canvas id="challengeChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Smart Air Purifier Network. All rights reserved.</p>
+  </footer>
+
+  <!-- Script Loading Order -->
+  <!-- 1) Moment.js -->
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+  <!-- 2) Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- 3) Chart.js Moment Adapter (loaded after Chart.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0/dist/chartjs-adapter-moment.min.js"></script>
+  <!-- 4) Chart.js Streaming Plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@2.0.0"></script>
+  
+  <script>
+    /**************************************************************
+     * 1. Setup for OpenWeatherMap APIs (Air Pollution, Weather, Geocoding)
+     **************************************************************/
+    const API_KEY = 'eb818942eccb02b7dd8382735c390d90';
+    // Default location coordinates (example: London)
+    let LAT = '51.5074';
+    let LON = '-0.1278';
+
+    // Function to get air pollution URL
+    function getAirQualityUrl(lat, lon, apiKey) {
+      return `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    }
+
+    // Fetch air quality data with debugging logs
+    function fetchAirQualityData() {
+      const url = getAirQualityUrl(LAT, LON, API_KEY);
+      console.log("Fetching air quality from:", url);
+      fetch(url)
+        .then(response => {
+          console.log("Air quality response status:", response.status);
+          return response.json();
+        })
+        .then(data => {
+          console.log("Air quality data:", data);
+          if (data && data.list && data.list.length > 0) {
+            const components = data.list[0].components;
+            document.getElementById('pm25').innerText = components.pm2_5.toFixed(1) + ' µg/m³';
+            document.getElementById('co2').innerText  = components.co.toFixed(1)    + ' µg/m³';
+            document.getElementById('voc').innerText  = components.o3.toFixed(1)    + ' µg/m³';
+          } else {
+            console.warn("Air quality data not in expected format.");
+          }
+        })
+        .catch(error => console.error('Error fetching air quality:', error));
+    }
+
+    // Fetch temperature data with debugging logs
+    function fetchTemperature() {
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${LAT}&lon=${LON}&appid=${API_KEY}&units=metric`;
+      console.log("Fetching temperature from:", weatherUrl);
+      fetch(weatherUrl)
+        .then(response => {
+          console.log("Temperature response status:", response.status);
+          return response.json();
+        })
+        .then(data => {
+          console.log("Temperature data:", data);
+          if (data && data.main) {
+            document.getElementById('temp').innerText = data.main.temp.toFixed(1) + ' °C';
+          } else {
+            console.warn("Temperature data not in expected format.");
+          }
+        })
+        .catch(error => console.error('Error fetching temperature:', error));
+    }
+
+    /**************************************************************
+     * 2. Chart.js Setup (with Streaming Plugin)
+     **************************************************************/
+    const pm25Ctx = document.getElementById('pm25Chart').getContext('2d');
+    const pm25Chart = new Chart(pm25Ctx, {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            label: 'PM2.5 Level',
+            borderColor: '#85e0c9',
+            backgroundColor: 'rgba(133,224,201,0.1)',
+            data: []
+          }
+        ]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'realtime',
+            realtime: {
+              delay: 2000,
+              refresh: 10000,
+              onRefresh: function(chart) {
+                const pm25Text = document.getElementById('pm25').innerText;
+                const pm25Value = parseFloat(pm25Text);
+                if (!isNaN(pm25Value)) {
+                  chart.data.datasets[0].data.push({
+                    x: Date.now(),
+                    y: pm25Value
+                  });
+                }
+              }
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'µg/m³'
+            }
+          }
+        }
+      }
+    });
+
+    // Static bar chart for Community Challenges (sample data)
+    const challengeCtx = document.getElementById('challengeChart').getContext('2d');
+    const challengeChart = new Chart(challengeCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Clean Air Week', 'Greenest Block', 'Filter Drive'],
+        datasets: [{
+          label: 'Participants',
+          data: [120, 90, 150],
+          backgroundColor: ['#85e0c9', '#65bfa8', '#4ea391']
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of Participants'
+            }
+          }
+        }
+      }
+    });
+
+    /**************************************************************
+     * 3. Geocoding: Convert City Name to Coordinates
+     **************************************************************/
+    function fetchCoordinates(city) {
+      const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${API_KEY}`;
+      console.log("Fetching coordinates from:", geoUrl);
+      fetch(geoUrl)
+        .then(response => {
+          console.log("Geocoding response status:", response.status);
+          return response.json();
+        })
+        .then(data => {
+          console.log("Geocoding data:", data);
+          if (data && data.length > 0) {
+            LAT = data[0].lat;
+            LON = data[0].lon;
+            console.log("Updated coordinates:", LAT, LON);
+            // After updating coordinates, fetch new data
+            fetchAirQualityData();
+            fetchTemperature();
+          } else {
+            alert("City not found. Please try another city.");
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching coordinates:', error);
+          alert("Error fetching coordinates. Please try again later.");
+        });
+    }
+
+    // Event listener for the search button
+    document.getElementById('searchBtn').addEventListener('click', function() {
+      const city = document.getElementById('cityInput').value;
+      if (city.trim() !== "") {
+        fetchCoordinates(city);
+      } else {
+        alert("Please enter a city name.");
+      }
+    });
+
+    /**************************************************************
+     * 4. Automatic Updates
+     **************************************************************/
+    // Fetch default data immediately (for the default LAT/LON)
+    fetchAirQualityData();
+    fetchTemperature();
+
+    // Update air quality every 10 seconds, temperature every 30 seconds
+    setInterval(fetchAirQualityData, 10000);
+    setInterval(fetchTemperature, 30000);
+  </script>
+</body>
+</html>

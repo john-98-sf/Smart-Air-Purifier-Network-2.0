@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Air Purifier Unit Map - Smart Air Purifier Network 2.0</title>
+  <!-- Leaflet CSS for the map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* Dark Theme Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #fff;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      color: #85e0c9;
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #85e0c9;
+    }
+
+    /* Filters Section */
+    .filters {
+      padding: 1rem;
+      background-color: #2c2c2c;
+      display: flex;
+      justify-content: space-between;
+      margin: 1rem;
+      border-radius: 8px;
+    }
+    .filters input, .filters select {
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #333;
+      color: #fff;
+    }
+
+    /* Map Section */
+    #map {
+      height: 60vh;
+      width: 100%;
+    }
+
+    /* Unit Details Section */
+    .details {
+      background-color: #2c2c2c;
+      padding: 1rem;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-top: 1rem;
+    }
+    .details h3 {
+      color: #85e0c9;
+    }
+    .details p {
+      color: #bbb;
+    }
+
+    /* Footer Section */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #1e1e1e;
+      color: #bbb;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">Smart Air Purifier Network 2.0</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="air-purifier-dashboard.html">My purifier</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Filters Section -->
+  <div class="filters">
+    <input type="text" id="searchLocation" placeholder="Search by location" oninput="filterMarkers()" />
+    <select id="statusFilter" onchange="filterMarkers()">
+      <option value="all">All Status</option>
+      <option value="green">Healthy (Green)</option>
+      <option value="yellow">Needs Maintenance (Yellow)</option>
+      <option value="red">Critical (Red)</option>
+    </select>
+  </div>
+
+  <!-- Map Section -->
+  <div id="map"></div>
+
+  <!-- Unit Details Section -->
+  <div id="unitDetails" class="details" style="display: none;">
+    <h3>Unit Details</h3>
+    <p id="unitName"></p>
+    <p id="unitStatus"></p>
+    <p id="unitFilterStatus"></p>
+    <p id="unitLastMaintenance"></p>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Smart Air Purifier Network. All rights reserved.</p>
+  </footer>
+
+  <!-- Leaflet JS for the map -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Sample data for air purifier locations
+    const purifierData = [
+      {
+        id: 1,
+        name: "Purifier 1",
+        location: "Downtown",
+        lat: 51.505,
+        lng: -0.09,
+        status: "green", // healthy
+        filterStatus: "Clean",
+        lastMaintenance: "2025-03-15"
+      },
+      {
+        id: 2,
+        name: "Purifier 2",
+        location: "Uptown",
+        lat: 51.515,
+        lng: -0.1,
+        status: "yellow", // needs maintenance
+        filterStatus: "Needs Cleaning",
+        lastMaintenance: "2025-01-10"
+      },
+      {
+        id: 3,
+        name: "Purifier 3",
+        location: "Suburbs",
+        lat: 51.525,
+        lng: -0.11,
+        status: "red", // critical
+        filterStatus: "Very Dirty",
+        lastMaintenance: "2025-02-25"
+      }
+    ];
+
+    // Initialize map
+    const map = L.map('map').setView([51.505, -0.09], 13);
+
+    // Set up the tile layer for the map
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Create markers for each purifier
+    let markers = [];
+    purifierData.forEach(unit => {
+      const marker = L.marker([unit.lat, unit.lng])
+        .addTo(map)
+        .bindPopup(`<b>${unit.name}</b><br>Location: ${unit.location}`)
+        .on('click', () => showUnitDetails(unit));
+
+      markers.push({
+        unit: unit,
+        marker: marker
+      });
+    });
+
+    // Filter markers by location and status
+    function filterMarkers() {
+      const searchValue = document.getElementById("searchLocation").value.toLowerCase();
+      const statusValue = document.getElementById("statusFilter").value;
+
+      markers.forEach(markerData => {
+        const unit = markerData.unit;
+        const marker = markerData.marker;
+
+        // Filter by location
+        if (unit.location.toLowerCase().includes(searchValue) &&
+            (statusValue === "all" || unit.status === statusValue)) {
+          marker.addTo(map);
+        } else {
+          map.removeLayer(marker);
+        }
+      });
+    }
+
+    // Show unit details when a marker is clicked
+    function showUnitDetails(unit) {
+      document.getElementById("unitName").innerText = `Name: ${unit.name}`;
+      document.getElementById("unitStatus").innerText = `Status: ${unit.status.charAt(0).toUpperCase() + unit.status.slice(1)}`;
+      document.getElementById("unitFilterStatus").innerText = `Filter Status: ${unit.filterStatus}`;
+      document.getElementById("unitLastMaintenance").innerText = `Last Maintenance: ${unit.lastMaintenance}`;
+      document.getElementById("unitDetails").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Challenges - Smart Air Purifier Network 2.0</title>
+  <style>
+    /* Dark Theme Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #fff;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      color: #85e0c9;
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #85e0c9;
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      padding: 2rem;
+      background-color: #1e1e1e;
+      color: #fff;
+    }
+
+    /* Challenges Section */
+    .challenges-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2rem 0;
+      padding: 0 1rem;
+    }
+    .challenge-card {
+      background-color: #2c2c2c;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .challenge-card:hover {
+      transform: translateY(-3px);
+    }
+    .challenge-card h3 {
+      color: #85e0c9;
+      margin-bottom: 1rem;
+    }
+    .challenge-card p {
+      color: #bbb;
+      margin-bottom: 1rem;
+    }
+
+    /* Progress Bar */
+    .progress-bar-container {
+      background-color: #e5e5e5;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .progress-bar {
+      height: 100%;
+      background-color: #85e0c9;
+      width: 0%; /* Progress dynamically updated */
+      border-radius: 5px;
+    }
+
+    /* Button Styling */
+    .btn-join {
+      background-color: #85e0c9;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn-join:hover {
+      background-color: #65bfa8;
+    }
+
+    /* Rewards System */
+    .rewards {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .rewards h3 {
+      color: #85e0c9;
+    }
+    .reward-card {
+      background-color: #2c2c2c;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 1rem;
+    }
+    .reward-card h4 {
+      color: #85e0c9;
+      margin-bottom: 1rem;
+    }
+    .reward-card p {
+      color: #bbb;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">Smart Air Purifier Network 2.0</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="air-purifier-dashboard.html">My purifier</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header Section -->
+  <div class="header">
+    <h1>Community Challenges</h1>
+    <p>Join challenges to improve air quality in your community and earn rewards!</p>
+  </div>
+
+  <!-- Challenges Section -->
+  <section class="challenges-container">
+    <!-- Challenge 1 -->
+    <div class="challenge-card" id="challenge1">
+      <h3>Neighborhood Cleanup</h3>
+      <p>Help clean up local parks and streets to reduce pollution and improve air quality.</p>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress1" style="width: 70%"></div>
+      </div>
+      <button class="btn-join" onclick="joinChallenge('Neighborhood Cleanup')">Join Challenge</button>
+    </div>
+
+    <!-- Challenge 2 -->
+    <div class="challenge-card" id="challenge2">
+      <h3>Purifier Installations</h3>
+      <p>Support efforts to install air purifiers in underserved areas.</p>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress2" style="width: 40%"></div>
+      </div>
+      <button class="btn-join" onclick="joinChallenge('Purifier Installations')">Join Challenge</button>
+    </div>
+
+    <!-- Challenge 3 -->
+    <div class="challenge-card" id="challenge3">
+      <h3>Clean Air Advocacy</h3>
+      <p>Advocate for policies that support air quality improvement in your city.</p>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress3" style="width: 50%"></div>
+      </div>
+      <button class="btn-join" onclick="joinChallenge('Clean Air Advocacy')">Join Challenge</button>
+    </div>
+  </section>
+
+  <!-- Rewards System -->
+  <section class="rewards">
+    <h3>Rewards for Participation</h3>
+    <div class="reward-card">
+      <h4>Bronze</h4>
+      <p>Participate in 1 challenge and earn a thank-you badge.</p>
+    </div>
+    <div class="reward-card">
+      <h4>Silver</h4>
+      <p>Complete 3 challenges and earn a limited-edition T-shirt.</p>
+    </div>
+    <div class="reward-card">
+      <h4>Gold</h4>
+      <p>Complete 5 challenges and earn a free air purifier for your home!</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Smart Air Purifier Network. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Simulate joining a challenge
+    function joinChallenge(challengeName) {
+      alert(`You have joined the "${challengeName}" challenge!`);
+      updateProgress(challengeName);
+    }
+
+    // Update the progress bar for each challenge dynamically
+    function updateProgress(challengeName) {
+      if (challengeName === "Neighborhood Cleanup") {
+        document.getElementById('progress1').style.width = '75%'; // Update the progress for this challenge
+      } else if (challengeName === "Purifier Installations") {
+        document.getElementById('progress2').style.width = '45%'; // Update the progress for this challenge
+      } else if (challengeName === "Clean Air Advocacy") {
+        document.getElementById('progress3').style.width = '55%'; // Update the progress for this challenge
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Powered Maintenance - Smart Air Purifier Network 2.0</title>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Dark Theme Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #fff;
+    }
+    /* Navigation Bar */
+    nav {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      color: #85e0c9;
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #85e0c9;
+    }
+
+    /* Header Section */
+    .header {
+      text-align: center;
+      padding: 2rem;
+      background-color: #1e1e1e;
+      color: #fff;
+    }
+
+    /* Content Container */
+    .container {
+      margin: 2rem;
+    }
+
+    /* Alert Box */
+    .alert-box {
+      background-color: #ffcc00;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    .alert-box p {
+      margin: 0;
+    }
+    .action-button {
+      padding: 0.7rem 1.5rem;
+      background-color: #85e0c9;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .action-button:hover {
+      background-color: #65bfa8;
+    }
+
+    /* Forecast Box */
+    .forecast-box, .community-stats, .personalized-tips {
+      margin-top: 2rem;
+      background-color: #2c2c2c;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .forecast-box h3, .community-stats h3, .personalized-tips h3 {
+      color: #85e0c9;
+    }
+
+    /* Progress Bar */
+    .progress-bar-container {
+      background-color: #e5e5e5;
+      height: 10px;
+      border-radius: 5px;
+      margin-top: 1rem;
+    }
+    .progress-bar {
+      height: 100%;
+      background-color: #85e0c9;
+      width: 0%; /* Progress dynamically updated */
+      border-radius: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #1e1e1e;
+      color: #bbb;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">Smart Air Purifier Network 2.0</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="air-purifier-dashboard.html">My purifier</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header Section -->
+  <div class="header">
+    <h1>AI-Powered Maintenance</h1>
+    <p>Get real-time alerts, predictive air quality forecasts, and personalized suggestions to improve indoor air quality.</p>
+  </div>
+
+  <div class="container">
+    <!-- Maintenance Alerts Section -->
+    <div id="maintenanceAlert" class="alert-box">
+      <p><strong>Maintenance Alert:</strong> Your purifier's filter needs to be replaced soon. Schedule maintenance now.</p>
+      <button class="action-button" onclick="scheduleMaintenance()">Schedule Maintenance</button>
+    </div>
+
+    <!-- Predictive Air Quality Forecasting -->
+    <div class="forecast-box">
+      <h3>Air Quality Forecast</h3>
+      <p>Predicting air quality for the next 24-48 hours:</p>
+      <div class="progress-bar-container">
+        <div id="forecastProgress" class="progress-bar"></div>
+      </div>
+      <button class="action-button" onclick="viewForecastDetails()">View Detailed Forecast</button>
+    </div>
+
+    <!-- AI-Enhanced Community Analytics -->
+    <div class="community-stats">
+      <h3>Community Contributions</h3>
+      <p>Top neighborhood: <strong>Downtown</strong> - 75% purifier installation rate.</p>
+      <button class="action-button" onclick="viewLeaderboard()">View Leaderboard</button>
+    </div>
+
+    <!-- Personalized Air Quality Improvement Recommendations -->
+    <div class="personalized-tips">
+      <h3>Personalized Recommendations</h3>
+      <p>Based on your air quality data, here are some tips:</p>
+      <ul>
+        <li>Replace your purifier filter every 3 months for optimal performance.</li>
+        <li>Use your air purifier during the day when outdoor pollution is high.</li>
+        <li>Keep windows closed during pollution spikes to maintain indoor air quality.</li>
+      </ul>
+      <button class="action-button" onclick="applyRecommendations()">Apply Recommendations</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Smart Air Purifier Network. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Simulated AI Functions
+
+    // Maintenance Alert for the purifier
+    function showMaintenanceAlert() {
+      document.getElementById('maintenanceAlert').style.display = 'block';
+    }
+
+    function scheduleMaintenance() {
+      alert("Maintenance scheduled. We'll notify you when it's time to replace the filter.");
+      document.getElementById('maintenanceAlert').style.display = 'none';
+    }
+
+    // Predictive Forecast for Air Quality
+    function showForecast() {
+      const forecastProgress = document.getElementById('forecastProgress');
+      forecastProgress.style.width = '80%'; // Simulate progress
+    }
+
+    function viewForecastDetails() {
+      alert("Forecast for the next 24 hours: PM2.5 levels will be moderate. Recommended to use air purifiers in the evening.");
+    }
+
+    // Community Analytics: Leaderboard
+    function viewLeaderboard() {
+      alert("Leaderboard: Top neighborhoods - Downtown, Uptown, and Suburbs. Join efforts to improve air quality!");
+    }
+
+    // Personalized Tips for the user
+    function applyRecommendations() {
+      alert("Recommendations applied! Keep using your purifier to maintain optimal air quality.");
+    }
+
+    // Initialize: Show alert, forecast, and community stats on page load
+    window.onload = function() {
+      showMaintenanceAlert();
+      showForecast();
+    }
+  </script>
+
+</body>
+</html>

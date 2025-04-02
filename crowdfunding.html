@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crowdfunding - Smart Air Purifier Network 2.0</title>
+  <style>
+    /* Dark Theme Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #fff;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      color: #85e0c9;
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #85e0c9;
+    }
+
+    /* Crowdfunding Campaign Styles */
+    .campaign-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2rem 0;
+      padding: 0 1rem;
+    }
+    .campaign-card {
+      background: #2c2c2c;
+      padding: 1.5rem;
+      width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .campaign-card:hover {
+      transform: translateY(-3px);
+    }
+    .campaign-card h3 {
+      color: #85e0c9;
+      margin-bottom: 1rem;
+    }
+    .campaign-card p {
+      color: #bbb;
+      margin-bottom: 1rem;
+    }
+
+    /* Progress Bar */
+    .progress-bar-container {
+      margin: 1rem 0;
+      background: #e5e5e5;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: #85e0c9;
+      width: 0%; /* Dynamic width based on progress */
+      border-radius: 5px;
+    }
+
+    /* Donation Options */
+    .donation-options {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .donation-options button {
+      background: #85e0c9;
+      color: #1f1f1f;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .donation-options button:hover {
+      background: #65bfa8;
+    }
+
+    /* Rewards System */
+    .rewards-container {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .reward-card {
+      background: #2c2c2c;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .reward-card h4 {
+      color: #85e0c9;
+      margin-bottom: 1rem;
+    }
+    .reward-card p {
+      color: #bbb;
+    }
+
+    /* Social Media Sharing Section */
+    .share-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .share-buttons button {
+      background: #3b5998; /* Facebook Blue */
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .share-buttons button:hover {
+      background: #65bfa8;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">Smart Air Purifier Network 2.0</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="air-purifier-dashboard.html">My purifier</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="about.html">About</a></li>
+    
+      <li><a href="crowdfunding.html" style="color: #85e0c9;">Crowdfunding</a></li>
+    </ul>
+  </nav>
+
+  <!-- Crowdfunding Campaigns -->
+  <section class="campaign-container">
+    <div class="campaign-card">
+      <h3>Fund a Local Air Purifier</h3>
+      <p>Help install air purifiers in underserved neighborhoods for cleaner air.</p>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress1" style="width: 60%"></div>
+      </div>
+      <p>Goal: $10,000 | Raised: $6,000</p>
+      <div class="donation-options">
+        <button onclick="donate(10)">Donate $10</button>
+        <button onclick="donate(25)">Donate $25</button>
+        <button onclick="donate(50)">Donate $50</button>
+      </div>
+    </div>
+
+    <div class="campaign-card">
+      <h3>Community Air Quality Challenge</h3>
+      <p>Support efforts to improve air quality through community-driven actions.</p>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress2" style="width: 40%"></div>
+      </div>
+      <p>Goal: $8,000 | Raised: $3,600</p>
+      <div class="donation-options">
+        <button onclick="donate(10)">Donate $10</button>
+        <button onclick="donate(25)">Donate $25</button>
+        <button onclick="donate(50)">Donate $50</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rewards for Donors -->
+  <section class="rewards-container">
+    <h3>Exclusive Rewards for Donors</h3>
+    <div class="reward-card">
+      <h4>Bronze Donor</h4>
+      <p>Donate $10 or more and receive a thank-you note and a certificate of appreciation.</p>
+    </div>
+    <div class="reward-card">
+      <h4>Silver Donor</h4>
+      <p>Donate $50 or more and receive a personalized thank-you note and a limited-edition Smart Air Purifier Network T-shirt.</p>
+    </div>
+    <div class="reward-card">
+      <h4>Gold Donor</h4>
+      <p>Donate $100 or more and receive a free Smart Air Purifier for your home or office.</p>
+    </div>
+  </section>
+
+  <!-- Social Media Sharing Section -->
+  <section class="share-buttons">
+    <button onclick="shareOnFacebook()">Share on Facebook</button>
+    <button onclick="shareOnTwitter()">Share on Twitter</button>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Smart Air Purifier Network. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Interactivity -->
+  <script>
+    // Function to simulate donation and update the progress bar
+    function donate(amount) {
+      alert(`Thank you for donating $${amount}!`);
+      const campaignProgress = document.querySelectorAll('.progress-bar');
+      campaignProgress[0].style.width = '65%'; // Update progress bar for the first campaign
+      campaignProgress[1].style.width = '50%'; // Update progress bar for the second campaign
+    }
+
+    // Function to simulate social media sharing
+    function shareOnFacebook() {
+      const url = "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href;
+      window.open(url, "_blank");
+    }
+
+    function shareOnTwitter() {
+      const url = "https://twitter.com/intent/tweet?url=" + window.location.href;
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News & Updates - Smart Air Purifier Network 2.0</title>
+  <style>
+    /* Basic Reset & Dark Theme */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212; /* Dark background */
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      color: #85e0c9;
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #85e0c9; /* Hover effect */
+    }
+
+    /* News Section */
+    .news-container {
+      width: 80%;
+      margin: 3rem auto;
+      padding: 1rem;
+    }
+
+    /* Category Filter */
+    .category-filter {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .category-filter select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #333;
+      color: #fff;
+    }
+
+    /* Article Card */
+    .article-card {
+      background: #2c2c2c;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .article-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .article-card h3 {
+      color: #85e0c9; /* Cyan for headings */
+      margin-bottom: 1rem;
+    }
+    .article-card p {
+      color: #bbb; /* Light gray for paragraph text */
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    /* Read More Button */
+    .article-card button {
+      padding: 0.5rem 1rem;
+      background: #85e0c9;
+      color: #1f1f1f;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .article-card button:hover {
+      background: #65bfa8; /* Lighter cyan for hover effect */
+    }
+
+    /* Footer */
+    footer {
+      background: #1e1e1e;
+      color: #bbb;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">Smart Air Purifier Network 2.0</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="air-purifier-dashboard.html">My Purifier</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- News & Updates Section -->
+  <section class="news-container">
+    <h1>News & Updates</h1>
+    
+    <!-- Category Filter -->
+    <div class="category-filter">
+      <label for="category">Filter by Category:</label>
+      <select id="category" onchange="filterArticles()">
+        <option value="all">All</option>
+        <option value="health">Health</option>
+        <option value="technology">Technology</option>
+        <option value="policy">Policy</option>
+      </select>
+    </div>
+
+    <!-- Article Cards -->
+    <div id="articles-list">
+      <!-- Article 1 -->
+      <div class="article-card" data-category="health">
+        <h3>How Air Pollution Affects Human Health</h3>
+        <p>Air pollution has a significant impact on human health, contributing to respiratory issues, heart disease, and other complications. In this article, we explore the effects of common pollutants...</p>
+        <button onclick="openArticle('article1')">Read More</button>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="article-card" data-category="technology">
+        <h3>Technological Innovations in Air Purifiers</h3>
+        <p>Air purifier technology is advancing rapidly, offering more efficient solutions for cleaner indoor air. This article dives into the latest innovations in filtration, sensors, and smart features...</p>
+        <button onclick="openArticle('article2')">Read More</button>
+      </div>
+
+      <!-- Article 3 -->
+      <div class="article-card" data-category="policy">
+        <h3>New Government Policies for Clean Air</h3>
+        <p>Governments worldwide are enacting new policies aimed at reducing air pollution. From stricter emissions regulations to funding for green technologies, these changes are shaping the future of air quality...</p>
+        <button onclick="openArticle('article3')">Read More</button>
+      </div>
+
+      <!-- More articles can be added here -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Smart Air Purifier Network. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Interactivity -->
+  <script>
+    // Function to filter articles by category
+    function filterArticles() {
+      const category = document.getElementById('category').value;
+      const articles = document.querySelectorAll('.article-card');
+
+      articles.forEach(article => {
+        if (category === 'all' || article.dataset.category === category) {
+          article.style.display = 'block'; // Show the article
+        } else {
+          article.style.display = 'none'; // Hide the article
+        }
+      });
+    }
+
+    // Function to simulate opening an article (e.g., show a modal or redirect to full article page)
+    function openArticle(articleId) {
+      // For now, we'll just log the articleId. You can replace this with actual functionality.
+      alert('Opening ' + articleId);
+    }
+  </script>
+</body>
+</html>

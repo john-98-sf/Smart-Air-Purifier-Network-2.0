@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Smart Air Purifier Network 2.0</title>
+  <style>
+    /* Dark Theme Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212; /* Dark background */
+      color: #fff;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      color: #85e0c9;
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #85e0c9; /* Light cyan on hover */
+    }
+
+    /* Profile Header */
+    .profile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #3c3f41;
+      color: white;
+    }
+    .profile-header h1 {
+      margin: 0;
+    }
+    .profile-header button {
+      background: #85e0c9;
+      color: #1f1f1f;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .profile-header button:hover {
+      background-color: #65bfa8;
+    }
+
+    /* Real-Time Community Chat */
+    .chat-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #2c2c2c;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .chat-box {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .chat-input {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .chat-input input {
+      width: 80%;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .chat-input button {
+      width: 18%;
+      padding: 0.5rem;
+      background: #85e0c9;
+      color: #1f1f1f;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Personalized Dashboard */
+    .dashboard-container {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .dashboard-widget {
+      background: #2c2c2c;
+      padding: 1.5rem;
+      min-width: 250px;
+      max-width: 350px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .dashboard-widget h3 {
+      color: #85e0c9;
+      margin-bottom: 1rem;
+    }
+    .dashboard-widget p {
+      color: #bbb;
+    }
+
+    /* Social Media Integration */
+    .social-media-section {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .social-buttons button {
+      padding: 0.5rem 1.5rem;
+      background: #3b5998; /* Facebook Blue */
+      color: white;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .social-buttons button:hover {
+      background: #65bfa8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">Smart Air Purifier Network 2.0</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="air-purifier-dashboard.html">My Purifier</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="profile.html" style="color: #85e0c9;">Profile</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Profile Header -->
+  <section class="profile-header">
+    <h1>Welcome, [User's Name]</h1>
+    <button>Logout</button>
+  </section>
+
+  <!-- Real-Time Community Chat -->
+  <section class="chat-container">
+    <h2>Real-Time Community Chat</h2>
+    <div class="chat-box" id="chatBox">
+      <p><strong>John Doe:</strong> Hey, has anyone noticed a spike in PM2.5 levels today?</p>
+      <p><strong>Jane Smith:</strong> Yes, it’s higher than usual. Any tips on how to improve air quality?</p>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatMessage" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </section>
+
+  <!-- Personalized Dashboard -->
+  <section class="dashboard-container">
+    <div class="dashboard-widget">
+      <h3>Air Quality Overview</h3>
+      <p>PM2.5: 15 µg/m³, CO₂: 400 ppm, AQI: 75</p>
+    </div>
+    <div class="dashboard-widget">
+      <h3>Recent Purifier Activity</h3>
+      <p>Last Filter Change: 10 days ago</p>
+      <p>Next Maintenance Due: 5 days</p>
+    </div>
+    <div class="dashboard-widget">
+      <h3>Your Challenges</h3>
+      <p>Joined Challenge: Clean the Neighborhood</p>
+      <p>Progress: 80%</p>
+    </div>
+  </section>
+
+  <!-- Social Media Integration -->
+  <section class="social-media-section">
+    <h2>Share Your Achievements</h2>
+    <div class="social-buttons">
+      <button onclick="shareOnFacebook()">Share on Facebook</button>
+      <button onclick="shareOnTwitter()">Share on Twitter</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Smart Air Purifier Network. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Interaction -->
+  <script>
+    // Real-time Community Chat functionality
+    function sendMessage() {
+      const message = document.getElementById('chatMessage').value;
+      if (message.trim() !== "") {
+        const chatBox = document.getElementById('chatBox');
+        const newMessage = document.createElement('p');
+        newMessage.innerHTML = `<strong>You:</strong> ${message}`;
+        chatBox.appendChild(newMessage);
+        document.getElementById('chatMessage').value = ""; // Clear input field
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+      }
+    }
+
+    // Social Media Sharing functionality
+    function shareOnFacebook() {
+      const url = "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href;
+      window.open(url, "_blank");
+    }
+
+    function shareOnTwitter() {
+      const url = "https://twitter.com/intent/tweet?url=" + window.location.href;
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>
